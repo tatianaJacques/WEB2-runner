@@ -9,6 +9,15 @@ var score = new Array();
 score.push(0);
 
 timerScore.ajouterScore();
+// gestion des vies
+
+
+var divVie = document.getElementById("life");
+var vie = new Vie();
+
+
+divVie.innerHTML = '<img src="images/heart13.svg"><img src="images/heart13.svg"><img src="images/heart13.svg">' + vie.getVie() ;
+
 
 //fin de la gestion du score
 
@@ -37,7 +46,7 @@ Q.Sprite.extend("Player",{
       standingPoints: [ [ -16, 44], [ -23, 35 ], [-23,-48], [23,-48], [23, 35 ], [ 16, 44 ]],
       duckingPoints : [ [ -16, 44], [ -23, 35 ], [-23,-10], [23,-10], [23, 35 ], [ 16, 44 ]],
       speed: 500,
-      jump: -700
+      jump: -900
     });
 
     this.p.points = this.p.standingPoints;
@@ -117,6 +126,23 @@ Q.Sprite.extend("Box",{
     this.p.ay = 400;
     this.p.vy = -300;
     this.p.opacity = 0.5;
+    //lorsque la personne touche un objet elle perd une vie, les collisions pouvant varier de 1 à 20 lorsque l'on touche un objet
+    //on ne perd pas automatiquement un coeur lorsque l'on touche un objet.
+    vie.perdUneVie();
+
+    if(vie.getVie() == 20 ){
+          divVie.innerHTML = '<img src="images/heart13.svg"><img src="images/heart13.svg">' + vie.getVie();
+    }
+    if(vie.getVie() == 10 ){
+          divVie.innerHTML = '<img src="images/heart13.svg">'  + vie.getVie() ;
+    }
+      //la personne n'a plus de vie, lance la scene de fin
+    if(vie.getVie() == 0 ){
+        divVie.innerHTML = '<img src="images/heart13.svg"><img src="images/heart13.svg"><img src="images/heart13.svg">' + vie.getVie();
+        timerScore.arreterScore(); //arrete le timer
+
+        Q.stageScene("endGame");
+    }
   }
 
 
