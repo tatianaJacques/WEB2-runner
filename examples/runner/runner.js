@@ -1,11 +1,26 @@
 window.addEventListener("load",function() {
 
+
+//gestion du score
+
+var timerScore = new Score();
+
+var score = new Array();
+score.push(0);
+
+timerScore.ajouterScore();
+
+//fin de la gestion du score
+
+
 var Q = window.Q = Quintus()
         .include("Sprites, Scenes, Input, 2D, Anim, Touch, UI")
         .setup({ maximize: true })
         .controls().touch()
 
 var SPRITE_BOX = 1;
+
+var jumpNumber = 0;
 
 Q.gravityY = 2000;
 
@@ -37,12 +52,13 @@ Q.Sprite.extend("Player",{
       this.p.y = 555;
       this.p.landed = 1;
       this.p.vy = 0;
-    } else {
+    }else {
       this.p.landed = 0;
     }
 
     if(Q.inputs['up'] && this.p.landed > 0) {
       this.p.vy = this.p.jump;
+      jumpNumber += 1;
     }
 
     this.p.points = this.p.standingPoints;
