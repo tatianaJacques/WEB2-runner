@@ -1,5 +1,5 @@
 function Vie(){
-    vie = 30 ;
+    vie = 15 ;
 }
 
 Vie.prototype.ajouterVie = function(){
@@ -7,7 +7,7 @@ Vie.prototype.ajouterVie = function(){
 };
 
 Vie.prototype.perdUneVie = function(){
-    console.log(vie);
+    // console.log(vie);
     return vie=vie-1;
     // console.log(vie);
 };
@@ -16,5 +16,5 @@ Vie.prototype.getVie = function(){
         return vie;
     };
 Vie.prototype.resetVie = function(){
-       return vie = 30;
+       return vie = 15;
     };

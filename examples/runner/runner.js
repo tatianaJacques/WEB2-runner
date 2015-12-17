@@ -28,6 +28,7 @@ var Q = window.Q = Quintus()
         .controls().touch()
 
 var SPRITE_BOX = 1;
+var SPRITE_COIN = 3;
 
 var jumpNumber = 0;
 
@@ -108,16 +109,15 @@ Q.Sprite.extend("Box",{
     this._super({
       x: player.p.x + Q.width + 50,
       y: levels[Math.floor(Math.random() * 3)],
-      frame: Math.random() < 0.5 ? 1 : 0,
+      frame: Math.floor(Math.random()* 10),
       scale: 2,
       type: SPRITE_BOX,
       sheet: "crates",
-      vx: -600 + 200 * Math.random(),
+      vx: -400 + 200 * Math.random(),
       vy: 0,
       ay: 0,
       theta: (300 * Math.random() + 200) * (Math.random() < 0.5 ? 1 : -1)
     });
-
 
     this.on("hit");
   },
@@ -147,10 +147,10 @@ Q.Sprite.extend("Box",{
     //on ne perd pas automatiquement un coeur lorsque l'on touche un objet.
     vie.perdUneVie();
 
-    if(vie.getVie() == 20 ){
+    if(vie.getVie() == 15 ){
           divVie.innerHTML = '<img src="images/heart13.svg"><img src="images/heart13.svg">' + vie.getVie();
     }
-    if(vie.getVie() == 10 ){
+    if(vie.getVie() == 8 ){
           divVie.innerHTML = '<img src="images/heart13.svg">'  + vie.getVie() ;
     }
       //la personne n'a plus de vie, lance la scene de fin
@@ -164,6 +164,71 @@ Q.Sprite.extend("Box",{
 
 
 });
+
+// Q.Sprite.extend("Coin",{
+//   init: function() {
+//
+//     var levels = [ 565, 540, 500, 450 ];
+//
+//     var player = Q("Player").first();
+//     this._super({
+//       x: player.p.x + Q.width + 50,
+//       y: levels[Math.floor(Math.random() * 3)],
+//       frame: 1,
+//       scale: 2,
+//       type: SPRITE_BOX,
+//       sheet: "crates",
+//       vx: -600 + 200 * Math.random(),
+//       vy: 0,
+//       ay: 0,
+//       theta: (300 * Math.random() + 200) * (Math.random() < 0.5 ? 1 : -1)
+//     });
+//
+//     this.on("hit");
+//   },
+//
+//   step: function(dt) {
+//     this.p.x += this.p.vx * dt;
+//
+//
+//     this.p.vy += this.p.ay * dt;
+//     this.p.y += this.p.vy * dt;
+//     if(this.p.y != 565) {
+//       this.p.angle += this.p.theta * dt;
+//     }
+//
+//     if(this.p.y > 800) { this.destroy(); }
+//
+//   },
+//
+//   hit: function() {
+//     this.p.type = 0;
+//     this.p.collisionMask = Q.SPRITE_NONE;
+//     this.p.vx = 200;
+//     this.p.ay = 400;
+//     this.p.vy = -300;
+//     this.p.opacity = 0.5;
+//     //lorsque la personne touche un objet elle perd une vie, les collisions pouvant varier de 1 à 20 lorsque l'on touche un objet
+//     //on ne perd pas automatiquement un coeur lorsque l'on touche un objet.
+//     vie.perdUneVie();
+//
+//     if(vie.getVie() == 15 ){
+//           divVie.innerHTML = '<img src="images/heart13.svg"><img src="images/heart13.svg">' + vie.getVie();
+//     }
+//     if(vie.getVie() == 8 ){
+//           divVie.innerHTML = '<img src="images/heart13.svg">'  + vie.getVie() ;
+//     }
+//       //la personne n'a plus de vie, lance la scene de fin
+//     if(vie.getVie() == 0 ){
+//         divVie.innerHTML = '<img src="images/heart13.svg"><img src="images/heart13.svg"><img src="images/heart13.svg">' + vie.getVie();
+//         timerScore.arreterScore(); //arrete le timer
+//
+//         Q.stageScene("endGame");
+//     }
+//   }
+//
+//
+// });
 
 Q.GameObject.extend("BoxThrower",{
   init: function() {
