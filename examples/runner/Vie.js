@@ -13,7 +13,6 @@ Vie.prototype.perdUneVie = function(){
 };
 
 Vie.prototype.getVie = function(){
-
         return vie;
     };
 Vie.prototype.resetVie = function(){

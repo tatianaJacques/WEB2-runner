@@ -169,6 +169,8 @@ Q.GameObject.extend("BoxThrower",{
 });
 
 
+
+
 Q.scene("level1",function(stage) {
 
   stage.insert(new Q.Repeater({ asset: "background-wall.png",
@@ -185,6 +187,69 @@ Q.scene("level1",function(stage) {
   stage.add("viewport");
 
 });
+
+
+Q.scene("level2",function(stage) {
+
+  stage.insert(new Q.Repeater({ asset: "background-wall.png",
+                                speedX: 0.5 }));
+
+  stage.insert(new Q.Repeater({ asset: "background-floor.png",
+                                repeatY: false,
+                                speedX: 1.5,
+                                y: 300 }));
+
+  stage.insert(new Q.BoxThrower());
+
+  stage.insert(new Q.Player());
+  stage.add("viewport");
+
+});
+//gestion fin du jeu
+Q.scene("endGame",function(stage) {
+//ajoute le score dans un array
+score.push(timerScore.getScore());
+score.sort(function(a, b){return b-a});
+
+stage.insert(new Q.Repeater({ asset: "gameover.jpg",
+                            speedX: 0.5 }));
+
+
+  timerScore.resetScore();
+
+vie.resetVie();
+//bouton rejouer
+stage.insert(new Q.UI.Button({
+  label: "Rejouer",
+  y: 120,
+  x: Q.width/2
+}, function() {
+  Q.stageScene("level1");
+  timerScore.ajouterScore();
+}));
+    //sauvegarde du score dans la BDD
+//    stage.insert(new Q.UI.Button({
+//   label: "Sauvegarder le score",
+//   y: 200,
+//   x: Q.width/2
+// }, function() {
+//
+//    window.alert("Score enregistré ! ");
+//
+// }));
+
+
+//affiche le meilleur score
+stage.insert(new Q.UI.Text({
+  label: "Votre meilleur score : "+score[0],
+  color: "black",
+  align: 'center',
+  x: Q.width/2,
+  y: 300
+}));
+
+});
+
 
 Q.load("player.json, player.png, background-wall.png, background-floor.png, crates.png, crates.json", function() {
     Q.compileSheets("player.png","player.json");

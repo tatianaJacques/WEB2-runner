@@ -209,8 +209,6 @@ Q.scene("level2",function(stage) {
 
   stage.insert(new Q.Player({speed:700}));
   stage.add("viewport");
-
-
 });
 
 
