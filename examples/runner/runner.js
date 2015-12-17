@@ -46,7 +46,10 @@ Q.Sprite.extend("Player",{
       standingPoints: [ [ -16, 44], [ -23, 35 ], [-23,-48], [23,-48], [23, 35 ], [ 16, 44 ]],
       duckingPoints : [ [ -16, 44], [ -23, 35 ], [-23,-10], [23,-10], [23, 35 ], [ 16, 44 ]],
       speed: 500,
-      jump: -900
+      jump: -700,
+      isJumpPressed: false,
+      hasJumped: false,
+      hasJumpedTwice: false
     });
 
     this.p.points = this.p.standingPoints;
@@ -60,15 +63,29 @@ Q.Sprite.extend("Player",{
     if(this.p.y > 555) {
       this.p.y = 555;
       this.p.landed = 1;
+      this.p.hasJumped = false;
+      this.p.hasJumpedTwice = false;
       this.p.vy = 0;
     }else {
       this.p.landed = 0;
     }
 
-    if(Q.inputs['up'] && this.p.landed > 0) {
-      this.p.vy = this.p.jump;
-      jumpNumber += 1;
-    }
+    if(Q.inputs['up'] && !this.p.hasJumpedTwice && !this.p.isJumpPressed){
+         this.p.vy = this.p.jump;
+       }
+
+        //if the player release up key...
+        if(Q.inputs['up'] === false){
+            this.p.hasJumped = true;
+            this.p.isJumpPressed = false;
+        }
+
+        if(Q.inputs['up']){
+            this.p.isJumpPressed = true;
+            if(this.p.hasJumped){
+                this.p.hasJumpedTwice = true;
+            }
+        }
 
     this.p.points = this.p.standingPoints;
     if(this.p.landed) {

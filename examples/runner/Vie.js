@@ -9,7 +9,7 @@ Vie.prototype.ajouterVie = function(){
 Vie.prototype.perdUneVie = function(){
     console.log(vie);
     return vie=vie-1;
-    console.log(vie);
+    // console.log(vie);
 };
 
 Vie.prototype.getVie = function(){
