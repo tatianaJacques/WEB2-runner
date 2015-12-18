@@ -22,8 +22,9 @@ var vie = new Vie();
 
 divVie.innerHTML = '<img src="images/heart13.svg"><img src="images/heart13.svg"><img src="images/heart13.svg">';
 
+//gestion du sons
+var sonCol = new Audio("sonCol.mp3");
 
-//fin de la gestion du score
 
 
 var Q = window.Q = Quintus()
@@ -144,6 +145,7 @@ Q.Sprite.extend("Box",{
     this.p.ay = 400;
     this.p.vy = -300;
     this.p.opacity = 0.5;
+    sonCol.jouerSon("sonCol");
 
     //lorsque la personne touche un objet elle perd une vie, les collisions pouvant varier de 1 à 20 lorsque l'on touche un objet
     //on ne perd pas automatiquement un coeur lorsque l'on touche un objet.
