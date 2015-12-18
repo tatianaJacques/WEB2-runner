@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
 <link rel="stylesheet" href="style.css">
 <title>Platformer Example</title>
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src='../../lib/quintus.js'></script>
 <script src='../../lib/quintus_sprites.js'></script>
 <script src='../../lib/quintus_scenes.js'></script>
@@ -23,7 +25,14 @@
 </style>
 </head>
 <body>
-  <div id="score"></div>
+  <div id="textScore">Score :  <span id="score"></span></div>
   <div id="life"></div>
+
+  <div id="popin">
+    <h2>Règles du jeu</h2>
+    <div>SPACE</div> Jump
+    <div>SPACE DOUBLE TAP</div> Double Jump
+    <p href="#" id="btnPlay" class="visible">Jouer</p>
+  </div>
 </body>
 </html>

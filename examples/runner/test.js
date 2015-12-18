@@ -275,7 +275,7 @@ Q.scene("endGame",function(stage) {
 
 });
 
-    Q.scene("debut",function(stage) {
+Q.scene("debut",function(stage) {
        stage.insert(new Q.Repeater({ asset: "firstPage.jpg",
                                 speedX: 0.5 }));
     //bouton rejouer
