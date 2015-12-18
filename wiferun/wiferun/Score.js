@@ -9,7 +9,7 @@ Score.prototype.ajouterScore = function(perdu){
      timer =  setInterval(function () {
         score = score+1;
         divScore.innerHTML = score ;
-        if(score==25){
+        if(score==15){
             Q.stageScene("level2");
         }
     }, 1000);

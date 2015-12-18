@@ -144,6 +144,7 @@ Q.Sprite.extend("Box",{
     this.p.ay = 400;
     this.p.vy = -300;
     this.p.opacity = 0.5;
+
     //lorsque la personne touche un objet elle perd une vie, les collisions pouvant varier de 1 à 20 lorsque l'on touche un objet
     //on ne perd pas automatiquement un coeur lorsque l'on touche un objet.
     vie.perdUneVie();
@@ -232,10 +233,6 @@ score.sort(function(a, b){return b-a});
 stage.insert(new Q.Repeater({ asset: "findujeu.png",
                             speedX: 0.5 }));
 
-//reset du score
-timerScore.resetScore();
-timerScore.arreterScore();
-
 
 //reset de la vie
 vie.resetVie();
@@ -245,13 +242,18 @@ $('#textScore').css('display','none');
 $('#life').css('display','none');
 
 //affiche le meilleur score
-$('body').append('<h2 class="endScore">Il faudra faire mieux que '+score[0]+' <br/> pour avoir une bière !</h2>')
+$('body').append('<h2 class="endScore">Il faudra faire mieux que '+ timerScore.getScore() +' <br/> pour avoir une bière !</h2>')
 $('body').append('<p class="endbtn">Je retente ma chance</p>')
+
+
+//reset du score
+timerScore.resetScore();
+timerScore.arreterScore();
 
 //bouton rejouer
 
 $(".endbtn").on('click',function(){
-  
+
   //on focus le canvas pour pouvoir joeur directement sans avoir à cliquer
   document.getElementById('quintus').focus();
 
