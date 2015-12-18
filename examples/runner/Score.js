@@ -9,27 +9,21 @@ Score.prototype.ajouterScore = function(perdu){
      timer =  setInterval(function () {
         score = score+1;
         divScore.innerHTML = score ;
-        if(score==10){
+        if(score==25){
             Q.stageScene("level2");
         }
-        // if(score==70){
-        //     Q.stageScene("level3");
-        // }
     }, 1000);
 };
-
-Score.prototype.piece = function(){
-    score += 10;
-}
 
 Score.prototype.getScore = function(){
         return score;
     };
 
-Score.prototype.resetScore = function(){
-        score = 0;
-    }
-
 Score.prototype.arreterScore = function(){
-    clearInterval(timer);
-}
+  clearInterval(timer);
+};
+
+Score.prototype.resetScore = function(){
+  score = 0;
+  clearInterval(timer);
+};

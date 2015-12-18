@@ -2,12 +2,11 @@ window.addEventListener("load",function() {
 
 
 
-setTimeout(function(){ $('#popin').css('opacity','1'); $('#popin').css('transform','translateY(100px)');}, 2000);
+setTimeout(function(){ $('#popin').css('opacity','1'); $('#popin').css('transform','translateY(100px)'); $('.overlay').addClass('show');}, 2000);
 
 //gestion du score
 
 var timerScore = new Score();
-
 var score = new Array();
 score.push(0);
 
@@ -208,7 +207,6 @@ Q.scene("level1",function(stage) {
 
 Q.scene("level2",function(stage) {
 
-  timerScore.ajouterScore();
   stage.insert(new Q.Repeater({ asset: "decor.png",
                                 speedX: 0.5 }));
 
@@ -226,37 +224,43 @@ Q.scene("level2",function(stage) {
 
 //gestion fin du jeu
 Q.scene("endGame",function(stage) {
+
 //ajoute le score dans un array
 score.push(timerScore.getScore());
 score.sort(function(a, b){return b-a});
 
-stage.insert(new Q.Repeater({ asset: "gameover.jpg",
+stage.insert(new Q.Repeater({ asset: "findujeu.png",
                             speedX: 0.5 }));
 
 //reset du score
 timerScore.resetScore();
+timerScore.arreterScore();
+
 
 //reset de la vie
 vie.resetVie();
 
-//bouton rejouer
-stage.insert(new Q.UI.Button({
-  label: "Rejouer",
-  y: 120,
-  x: Q.width/2
-}, function() {
-  Q.stageScene("level1");
-  timerScore.ajouterScore();
-}));
+//on cache les informations
+$('#textScore').css('display','none');
+$('#life').css('display','none');
 
 //affiche le meilleur score
-stage.insert(new Q.UI.Text({
-  label: "Votre meilleur score : "+score[0],
-  color: "black",
-  align: 'center',
-  x: Q.width/2,
-  y: 300
-}));
+$('body').append('<h2 class="endScore">Il faudra faire mieux que '+score[0]+' <br/> pour avoir une bière !</h2>')
+$('body').append('<p class="endbtn">Je retente ma chance</p>')
+
+//bouton rejouer
+
+$(".endbtn").on('click',function(){
+  
+  //on focus le canvas pour pouvoir joeur directement sans avoir à cliquer
+  document.getElementById('quintus').focus();
+
+  Q.stageScene("level1");
+  $('.endScore').remove();
+  $('.endbtn').remove();
+  $('#textScore').css('display','block');
+  $('#life').css('display','block');
+});
 
 });
 
@@ -277,6 +281,7 @@ $('#btnPlay').click(function(){
 
    //on enlève et affiche les informations nécessaire au jeu
    $('body').css('background-image','none');
+   $('.overlay').removeClass('show');
    $('#textScore').css('display','block');
    $('#life').css('display','block');
 
@@ -285,7 +290,7 @@ $('#btnPlay').click(function(){
 });
 
 
-Q.load("player.json, player.png, background-wall.png, background-floor.png, decor.png,crates.png, crates.json", function() {
+Q.load("player.json, player.png, background-wall.png, findujeu.png, background-floor.png, decor.png,crates.png, crates.json", function() {
     Q.compileSheets("player.png","player.json");
     Q.compileSheets("crates.png","crates.json");
     Q.animations("player", {

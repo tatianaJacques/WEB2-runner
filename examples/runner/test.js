@@ -233,17 +233,16 @@ Q.scene("level3",function(stage) {
 
     //gestion fin du jeu
 Q.scene("endGame",function(stage) {
+
+    $('body').css('background-image','url(image/findujeu.png)')
     //ajoute le score dans un array
     score.push(timerScore.getScore());
     score.sort(function(a, b){return b-a});
 
-    stage.insert(new Q.Repeater({ asset: "gameover.jpg",
-                                speedX: 0.5 }));
 
+    timerScore.resetScore();
 
-      timerScore.resetScore();
-
-  vie.resetVie();
+    vie.resetVie();
     //bouton rejouer
     stage.insert(new Q.UI.Button({
       label: "Rejouer",
